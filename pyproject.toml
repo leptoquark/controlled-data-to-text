@@ -10,6 +10,7 @@ dependencies = ["numpy>=1.26,<3", "pandas>=2.2,<3", "scikit-learn>=1.5,<2", "str
 [project.optional-dependencies]
 test = ["pytest>=8,<10"]
 export = ["pymongo>=4.10,<5"]
+notebook = ["ipywidgets>=8,<9", "matplotlib>=3.8,<4", "nbformat>=5,<6"]
 [project.scripts]
 d2t = "controlled_d2t.cli:main"
 [tool.setuptools.packages.find]

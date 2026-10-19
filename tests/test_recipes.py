@@ -69,8 +69,8 @@ def test_code_library_has_live_feature_preview_and_downloads():
     app.session_state['main_page']='Codice e riuso'
     app.run()
     assert not app.exception
-    assert len(app.get('download_button'))==2
-    assert repr(docs[chosen]['codice_ente']) in app.get('code')[0].proto.code_text
+    assert len(app.get('download_button'))==4
+    assert any(repr(docs[chosen]['codice_ente']) in block.proto.code_text for block in app.get('code'))
     app.selectbox(key='recipe_topic').set_value('Feature').run()
     assert not app.exception
     assert len(app.dataframe[0].value)==18

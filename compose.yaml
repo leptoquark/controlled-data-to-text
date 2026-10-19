@@ -1,5 +1,7 @@
 services:
   demo:
     build: .
+    environment:
+      D2T_COLAB_NOTEBOOK_URL: "${D2T_COLAB_NOTEBOOK_URL:-}"
     ports:
       - "127.0.0.1:${DEMO_PORT:-8502}:8501"

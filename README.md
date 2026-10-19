@@ -28,6 +28,11 @@ python examples/snippets/07_pipeline_completa.py
 ```
 Eseguire dalla cartella principale del progetto con il pacchetto installato. Gli esempi che scrivono file usano `work/snippets/` e non modificano MongoDB o i template predefiniti.
 
+## Notebook guidato e Google Colab
+La pagina **Codice e riuso** include un notebook con 27 celle, spiegazioni, selettori interattivi, grafici, prove su template e feature e addestramento opzionale. Il pulsante **Apri il notebook in Colab** punta al file su GitHub; per un repository privato puoi usare il download `.ipynb` e il comando **File → Carica notebook** di Colab.
+Scarica anche il **pacchetto per Colab**: contiene codice, notebook e il solo profilo selezionato. Il notebook chiede di caricarlo quando necessario; non contatta MongoDB e non richiede token del repository. In alternativa puoi caricare lo ZIP completo del progetto.
+Puoi impostare `D2T_COLAB_NOTEBOOK_URL` con il collegamento a una tua copia su Drive. Le istruzioni complete sono in `docs/COLAB.md`. In locale installa `python -m pip install -e '.[notebook]'` prima di aprire il file in Jupyter.
+
 ## Linux/macOS
 ```bash
 python3 -m venv .venv

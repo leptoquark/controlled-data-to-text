@@ -40,6 +40,23 @@ def render_code_library(root,profile,dataset_path):
     relative=Path(dataset_path).relative_to(root).as_posix()
     st.subheader('Codice da leggere, copiare e riutilizzare')
     st.caption('Esempi Python eseguibili dalla cartella del progetto, usando il pacchetto installato. Il pulsante nell’angolo di ciascun riquadro copia il codice.')
+    from .colab import NOTEBOOK_PATH, notebook_url, colab_bundle
+    with st.container(border=True):
+        st.subheader('Esplora il framework in un notebook')
+        st.markdown('Un percorso guidato con codice modificabile, selettori interattivi, grafici, esperimenti sui dati mancanti e confronto dei template. Puoi seguirlo in Google Colab oppure in Jupyter.')
+        a,b=st.columns(2)
+        try:
+            a.link_button('Apri il notebook in Colab',notebook_url(),width='stretch')
+        except ValueError as exc:
+            a.error(str(exc))
+        b.download_button('Scarica il notebook .ipynb',(root/NOTEBOOK_PATH).read_bytes(),'controlled_data_to_text.ipynb','application/x-ipynb+json',key='download_notebook',width='stretch')
+        st.download_button('Scarica il pacchetto per Colab',colab_bundle(root,profile),'pacchetto-colab.zip','application/zip',key='download_colab_package',width='stretch')
+        st.caption('Il pacchetto contiene il codice necessario e una copia del profilo selezionato, non l’intero database. Il download è locale; il caricamento in Colab avviene solo quando lo scegli tu nel notebook.')
+        with st.expander('Primo avvio, repository privato e link personalizzato'):
+            st.markdown('1. Apri il notebook in Colab. Se il repository privato non è accessibile, scarica il file `.ipynb` e usa **File → Carica notebook** in Colab.\n2. Scarica il pacchetto per Colab dall’applicazione.\n3. Esegui la prima cella del notebook e carica lo ZIP quando richiesto. Le celle successive guidano selezioni, template, feature ed esportazione.')
+            st.markdown('[Apri Colab per caricare il notebook](https://colab.research.google.com/)')
+            st.caption('Puoi collegare una tua copia salvata su Drive tramite la variabile D2T_COLAB_NOTEBOOK_URL, usando un URL https://colab.research.google.com/drive/… . Il link non modifica i permessi del file.')
+            st.code('D2T_COLAB_NOTEBOOK_URL=https://colab.research.google.com/drive/ID_DEL_NOTEBOOK',language='bash')
     st.info('Profilo di riferimento: '+profile['denominazione']+' · '+profile['codice_ente'])
     left,right=st.columns([1,2])
     with left:
