@@ -14,8 +14,19 @@ py -m venv .venv
 Per riprodurre le versioni verificate usare prima `pip install -r requirements-lock.txt`, poi `pip install -e ".[test]"`.
 La demo include già dataset e risultati. Se il modello locale non è compatibile con la versione di scikit-learn installata, rigenerarlo con il comando experiment.
 
-L'interfaccia è organizzata in tre pagine: **Amministrazioni** (scelta della tipologia, ricerca degli enti filtrati, indicatori, spiegazioni e andamento annuale), **Risultati e confronti** (studio pubblicato ed esperimenti separati), **Come funziona** (percorso e documentazione). Ogni tipologia riporta il numero di enti disponibili. Le opzioni JSON e le evidenze dettagliate sono apribili su richiesta. Stile e tema sono locali, senza font o immagini da scaricare.
+L'interfaccia è organizzata in quattro pagine: **Amministrazioni** (scelta della tipologia, ricerca degli enti filtrati, indicatori, spiegazioni e andamento annuale), **Risultati e confronti** (studio pubblicato ed esperimenti separati), **Come funziona** (percorso e documentazione), **Codice e riuso** (snippet copiabili, download e anteprime). Ogni tipologia riporta il numero di enti disponibili. Le opzioni JSON e le evidenze dettagliate sono apribili su richiesta. Stile e tema sono locali, senza font o immagini da scaricare.
 Viene elaborata soltanto la scheda aperta. I profili e gli elenchi di ricerca sono mantenuti in memoria in sola lettura e ricaricati quando cambia il file dati. Tipologia, amministrazione, bozza modificata e spiegazione vengono conservate passando tra le schede. La barra laterale parte chiusa nelle nuove sessioni e può essere aperta dal pulsante in alto a sinistra.
+
+## Snippet per il riuso
+La sezione **Codice e riuso** contiene sette esempi eseguibili in `examples/snippets/`. Gli esempi pertinenti vengono personalizzati con il codice dell'ente selezionato nella pagina Amministrazioni. Ogni riquadro permette la copia; sono disponibili download `.py` e ZIP degli esempi. Il codice non incorpora i dati della dashboard.
+Le anteprime mostrano decisioni sui blocchi, catalogo dei template con segnaposto e variante scelta, e 18 feature ricavabili dal profilo. La funzione `extract_observed_features` conserva i valori mancanti e calcola i trend soltanto tra annualità di calendario consecutive. Queste 18 feature non sono compatibili con il modello dimostrativo a 42 colonne, per cui esistono esempi separati di generazione dello schema e inferenza nel laboratorio.
+
+```bash
+python examples/snippets/01_selezione_amministrazione.py
+python examples/snippets/04_feature_osservate.py
+python examples/snippets/07_pipeline_completa.py
+```
+Eseguire dalla cartella principale del progetto con il pacchetto installato. Gli esempi che scrivono file usano `work/snippets/` e non modificano MongoDB o i template predefiniti.
 
 ## Linux/macOS
 ```bash

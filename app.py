@@ -9,6 +9,7 @@ import streamlit as st
 from controlled_d2t.engine import generate
 from controlled_d2t.synthetic import load
 from controlled_d2t.schema import BLOCKS, validate, number
+from controlled_d2t.selection import typology, group_profiles
 
 ROOT=Path(__file__).parent
 LABELS={'introduzione':'Presentazione','diagnosi':'Quadro complessivo','indici':'Indici sintetici','debito':'Debito e rimborsi','entrate':'Entrate correnti','popolazione':'Popolazione','trend':'Andamento nel tempo','anni_significativi':'Anni significativi','appalti':'Appalti','tesoreria':'Tesoreria','confronti':'Confronto territoriale'}
@@ -29,11 +30,6 @@ def section(kicker,title,description=None):
     st.subheader(title)
     if description: st.caption(description)
 
-def typology(doc):
-    value=str(doc.get('tipologia_put') or doc.get('categoria') or 'Tipologia non disponibile').strip()
-    known={'COMUNE':'Comune','ENTE STRUMENTALE':'Ente strumentale','UNIONE_COMUNI':'Unione di Comuni','CITTA_METROP':'Città metropolitana','CONSIGLI_REG':'Consiglio regionale'}
-    return known.get(value,value.replace('_',' ').capitalize() if value.isupper() else value)
-
 st.set_page_config(page_title='Trasparenza · Dati e spiegazioni',page_icon='◈',layout='wide',initial_sidebar_state='collapsed')
 st.markdown('<style>'+ (ROOT/'assets/style.css').read_text(encoding='utf-8')+'</style>',unsafe_allow_html=True)
 
@@ -41,10 +37,7 @@ st.markdown('<style>'+ (ROOT/'assets/style.css').read_text(encoding='utf-8')+'</
 def examples(dataset_path,dataset_version):
     # Shared read-only data: edited profiles are separate JSON copies.
     profiles=load(dataset_path)
-    groups={}
-    for i,doc in enumerate(profiles): groups.setdefault(typology(doc),[]).append(i)
-    ordered={kind:sorted(indices,key=lambda i:profiles[i]['denominazione'].casefold()) for kind,indices in groups.items()}
-    return profiles,ordered
+    return profiles,group_profiles(profiles)
 
 with st.sidebar:
     st.markdown('<div class="brand">Trasparenza.</div><div class="brand-note">Dai dati alle spiegazioni.<br>Una lettura chiara delle amministrazioni.</div>',unsafe_allow_html=True)
@@ -64,7 +57,7 @@ if is_real:
 else:
     st.info('Stai esplorando il laboratorio: profili ed etichette sono simulati. Le sue metriche non valutano i dati della dashboard.')
 
-tab1,tab2,tab3=st.tabs(['Amministrazioni','Risultati e confronti','Come funziona'],key='main_page',on_change='rerun')
+tab1,tab2,tab3,tab4=st.tabs(['Amministrazioni','Risultati e confronti','Come funziona','Codice e riuso'],key='main_page',on_change='rerun')
 if tab1.open:
     with tab1:
         section('01 · Esplora','Scegli l’amministrazione','Seleziona prima la tipologia, poi cerca l’amministrazione per nome o codice nell’elenco filtrato.')
@@ -236,5 +229,13 @@ if tab3.open:
             st.markdown((ROOT/'docs/METHOD.md').read_text(encoding='utf-8'))
         with st.expander('Come aggiornare la copia locale dei dati'):
             st.markdown((ROOT/'docs/OFFLINE_DATA.md').read_text(encoding='utf-8'))
+
+if tab4.open:
+    with tab4:
+        from controlled_d2t.ui_code import render_code_library
+        saved=st.session_state.get('browse_selection',{})
+        index=saved.get('entity',0) if saved.get('source')==str(dataset_path) else 0
+        if not isinstance(index,int) or not 0<=index<len(docs): index=0
+        render_code_library(ROOT,docs[index],dataset_path)
 
 st.markdown('<div class="footer">Trasparenza · Dati, spiegazioni e provenienza in un unico spazio. La consultazione usa i file locali inclusi nell’applicazione.</div>',unsafe_allow_html=True)
