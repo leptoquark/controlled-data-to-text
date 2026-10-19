@@ -5,124 +5,76 @@
   "confidence_kind": "unavailable",
   "human_review_required": true,
   "validation": "typed_values_and_annual_arithmetic; surface_numbers_formatted_from_evidence",
-  "input_sha256": "4e1fa4c74f085bc7ad91d1a5bc8d0ed88e088fbe38d86011b4bf2adc1daa8ff7",
+  "input_sha256": "05c52331e728c31c3647d46cafff83032f718e13ab6121749545f1824760092d",
   "templates_sha256": "94195a62808a8db4eea3023847fd9b006a70bca076ab9dcb1c44d54d5dba3500",
   "blocks": [
     {
       "id": "introduzione",
       "template_id": "introduzione.v2",
       "rule_id": "introduzione.availability.v1",
-      "text": "Di seguito è presentato il profilo di Ente dimostrativo 1.",
+      "text": "Di seguito è presentato il profilo di Agenzia territoriale per i servizi di Borgochiaro del Piano.",
       "evidence": {
-        "denominazione": "Ente dimostrativo 1"
+        "denominazione": "Agenzia territoriale per i servizi di Borgochiaro del Piano"
       }
     },
     {
       "id": "diagnosi",
       "template_id": "diagnosi.v1",
       "rule_id": "diagnosi.availability.v1",
-      "text": "Il profilo presenta efficienza 92,676, sostenibilità 80,273 e rischio 28,282 su scala 0–100.",
+      "text": "Il profilo presenta efficienza 45,039, sostenibilità 42,928 e rischio 68,400 su scala 0–100.",
       "evidence": {
-        "indice_efficienza": 92.67649888486018,
-        "indice_sostenibilita": 80.27338932123065,
-        "indice_rischio": 28.282195191382137
+        "indice_efficienza": 45.038593789556714,
+        "indice_sostenibilita": 42.92839263091176,
+        "indice_rischio": 68.39963043108204
       }
     },
     {
       "id": "indici",
       "template_id": "indici.v1",
       "rule_id": "indici.availability.v1",
-      "text": "Gli indici sintetici disponibili sono: efficienza 92,676, sostenibilità 80,273, rischio 28,282 (scala 0–100).",
+      "text": "Gli indici sintetici disponibili sono: efficienza 45,039, sostenibilità 42,928, rischio 68,400 (scala 0–100).",
       "evidence": {
-        "indice_efficienza": 92.67649888486018,
-        "indice_sostenibilita": 80.27338932123065,
-        "indice_rischio": 28.282195191382137
-      }
-    },
-    {
-      "id": "debito",
-      "template_id": "debito.v1",
-      "rule_id": "debito.availability.v1",
-      "text": "Il rapporto medio tra flusso netto di debito ed entrate è 0,099. Il segno indica ricorso netto; non misura il debito residuo.",
-      "evidence": {
-        "indice_medio_debito_su_entrate": 0.09863305339384672
+        "indice_efficienza": 45.038593789556714,
+        "indice_sostenibilita": 42.92839263091176,
+        "indice_rischio": 68.39963043108204
       }
     },
     {
       "id": "entrate",
       "template_id": "entrate.v1",
       "rule_id": "entrate.availability.v1",
-      "text": "Le entrate correnti medie ammontano a 177.866.377,450 euro.",
+      "text": "Le entrate correnti medie ammontano a 5.377.907,010 euro.",
       "evidence": {
-        "entrate_medie": 177866377.45
-      }
-    },
-    {
-      "id": "trend",
-      "template_id": "trend.v1",
-      "rule_id": "trend.availability.v1",
-      "text": "Il rapporto passa da 0,172 nel 2019 a 0,034 nel 2021. Il confronto descrive gli estremi disponibili.",
-      "evidence": {
-        "valori_annuali": {
-          "2019": {
-            "debito_su_entrate": 0.17161682751480045,
-            "entrate_correnti": 211705267.34,
-            "variazione_debito": 36332186.3490635
-          },
-          "2020": {
-            "debito_su_entrate": 0.08995938095185764,
-            "entrate_correnti": 198218866.13,
-            "variazione_debito": 17831646.49003394
-          },
-          "2021": {
-            "debito_su_entrate": 0.03432295171488211,
-            "entrate_correnti": 174336508.05,
-            "variazione_debito": 5983743.547941307
-          }
-        }
+        "entrate_medie": 5377907.01
       }
     },
     {
       "id": "anni_significativi",
       "template_id": "anni_significativi.v1",
       "rule_id": "anni_significativi.availability.v1",
-      "text": "Il maggiore scostamento assoluto dallo zero è nel 2019, con rapporto 0,172.",
+      "text": "Il maggiore scostamento assoluto dallo zero è nel 2020, con rapporto 0,302.",
       "evidence": {
         "valori_annuali": {
           "2019": {
-            "debito_su_entrate": 0.17161682751480045,
-            "entrate_correnti": 211705267.34,
-            "variazione_debito": 36332186.3490635
+            "debito_su_entrate": 0.2683547620260116,
+            "entrate_correnti": 5554838.8,
+            "variazione_debito": 1490667.4442668557
           },
           "2020": {
-            "debito_su_entrate": 0.08995938095185764,
-            "entrate_correnti": 198218866.13,
-            "variazione_debito": 17831646.49003394
-          },
-          "2021": {
-            "debito_su_entrate": 0.03432295171488211,
-            "entrate_correnti": 174336508.05,
-            "variazione_debito": 5983743.547941307
+            "debito_su_entrate": 0.3023613116648708,
+            "entrate_correnti": 5200975.22,
+            "variazione_debito": 1572573.6894556899
           }
         }
-      }
-    },
-    {
-      "id": "appalti",
-      "template_id": "appalti.v1",
-      "rule_id": "appalti.availability.v1",
-      "text": "Il valore medio annuo degli appalti è 60.157.829,088 euro.",
-      "evidence": {
-        "importo_appalti_media": 60157829.08845242
       }
     },
     {
       "id": "tesoreria",
       "template_id": "tesoreria.v1",
       "rule_id": "tesoreria.availability.v1",
-      "text": "Le anticipazioni medie registrate ammontano a 14.720.775,843 euro.",
+      "text": "Le anticipazioni medie registrate ammontano a 298.250,541 euro.",
       "evidence": {
-        "anticipazioni_medie": 14720775.842701849
+        "anticipazioni_medie": 298250.5413731815
       }
     }
   ],
@@ -151,9 +103,9 @@
     {
       "block": "debito",
       "requested": true,
-      "available": true,
-      "included": true,
-      "reason": "included"
+      "available": false,
+      "included": false,
+      "reason": "missing_data_or_inapplicable"
     },
     {
       "block": "entrate",
@@ -172,9 +124,9 @@
     {
       "block": "trend",
       "requested": true,
-      "available": true,
-      "included": true,
-      "reason": "included"
+      "available": false,
+      "included": false,
+      "reason": "missing_data_or_inapplicable"
     },
     {
       "block": "anni_significativi",
@@ -186,9 +138,9 @@
     {
       "block": "appalti",
       "requested": true,
-      "available": true,
-      "included": true,
-      "reason": "included"
+      "available": false,
+      "included": false,
+      "reason": "missing_data_or_inapplicable"
     },
     {
       "block": "tesoreria",
@@ -205,5 +157,5 @@
       "reason": "missing_data_or_inapplicable"
     }
   ],
-  "text": "Di seguito è presentato il profilo di Ente dimostrativo 1.\n\nIl profilo presenta efficienza 92,676, sostenibilità 80,273 e rischio 28,282 su scala 0–100.\n\nGli indici sintetici disponibili sono: efficienza 92,676, sostenibilità 80,273, rischio 28,282 (scala 0–100).\n\nIl rapporto medio tra flusso netto di debito ed entrate è 0,099. Il segno indica ricorso netto; non misura il debito residuo.\n\nLe entrate correnti medie ammontano a 177.866.377,450 euro.\n\nIl rapporto passa da 0,172 nel 2019 a 0,034 nel 2021. Il confronto descrive gli estremi disponibili.\n\nIl maggiore scostamento assoluto dallo zero è nel 2019, con rapporto 0,172.\n\nIl valore medio annuo degli appalti è 60.157.829,088 euro.\n\nLe anticipazioni medie registrate ammontano a 14.720.775,843 euro."
+  "text": "Di seguito è presentato il profilo di Agenzia territoriale per i servizi di Borgochiaro del Piano.\n\nIl profilo presenta efficienza 45,039, sostenibilità 42,928 e rischio 68,400 su scala 0–100.\n\nGli indici sintetici disponibili sono: efficienza 45,039, sostenibilità 42,928, rischio 68,400 (scala 0–100).\n\nLe entrate correnti medie ammontano a 5.377.907,010 euro.\n\nIl maggiore scostamento assoluto dallo zero è nel 2020, con rapporto 0,302.\n\nLe anticipazioni medie registrate ammontano a 298.250,541 euro."
 }

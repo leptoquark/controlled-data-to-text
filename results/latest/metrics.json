@@ -3,7 +3,7 @@
   "label_source": "synthetic_policy_v1",
   "warning": "Queste metriche misurano apprendimento di una policy simulata, non validazione su enti reali o replica del paper.",
   "seed": 42,
-  "dataset_sha256": "d446f079765db8d5f552aff9d569e6505633babe225151e32ec3d2c5b2ba68e9",
+  "dataset_sha256": "65da04e8158b12b03c47ab589ad582e367504ca1c37ae44b79196fcbbc42d137",
   "split": {
     "train": 840,
     "validation": 180,
@@ -12,65 +12,65 @@
   "split_method": "entity_unique_random_70_15_15",
   "metrics": {
     "weighted_committee": {
-      "micro_f1": 0.9546666666666667,
-      "micro_precision": 0.9533954727030626,
-      "micro_recall": 0.9559412550066756,
-      "macro_f1": 0.8899346867632999,
-      "macro_precision": 0.9551954498440618,
-      "macro_recall": 0.9110140994631586
+      "micro_f1": 0.9524745984922977,
+      "micro_precision": 0.9521625163826999,
+      "micro_recall": 0.9527868852459016,
+      "macro_f1": 0.8923224405872898,
+      "macro_precision": 0.9051657408940208,
+      "macro_recall": 0.9112320027965306
     },
     "random_forest": {
-      "micro_f1": 0.952855245683931,
-      "micro_precision": 0.9478203434610304,
-      "micro_recall": 0.9579439252336449,
-      "macro_f1": 0.8931221942809559,
-      "macro_precision": 0.9129233901432309,
-      "macro_recall": 0.9145183175033921
+      "micro_f1": 0.9493960169768201,
+      "micro_precision": 0.9453836150845254,
+      "micro_recall": 0.9534426229508197,
+      "macro_f1": 0.8927208206606184,
+      "macro_precision": 0.8874773933125084,
+      "macro_recall": 0.9122540473225406
     },
     "majority_committee": {
-      "micro_f1": 0.953109411373462,
-      "micro_precision": 0.949635520212061,
-      "micro_recall": 0.9566088117489987,
-      "macro_f1": 0.8906939709504951,
-      "macro_precision": 0.9517618366832057,
-      "macro_recall": 0.9123709515662793
+      "micro_f1": 0.952598888525662,
+      "micro_precision": 0.9498044328552803,
+      "micro_recall": 0.9554098360655737,
+      "macro_f1": 0.896223650026828,
+      "macro_precision": 0.9146989432906062,
+      "macro_recall": 0.9153175591531756
     },
     "rule_only": {
-      "micro_f1": 0.9490547901313682,
-      "micro_precision": 0.9125077017868145,
-      "micro_recall": 0.9886515353805073,
-      "macro_f1": 0.9416742563043387,
-      "macro_precision": 0.9092563748657188,
-      "macro_recall": 0.9876188441405833
+      "micro_f1": 0.9484732824427481,
+      "micro_precision": 0.9209388511426807,
+      "micro_recall": 0.9777049180327869,
+      "macro_f1": 0.943734871633637,
+      "macro_precision": 0.9190566141838566,
+      "macro_recall": 0.9762881229046644
     }
   },
   "micro_f1_ci95": [
-    0.9482100136166779,
-    0.9609087243736796
+    0.9446414423995974,
+    0.9582080209495374
   ],
   "bootstrap_repetitions": 200,
   "per_block_f1": {
     "introduzione": 1.0,
-    "diagnosi": 1.0,
+    "diagnosi": 0.9966101694915255,
     "indici": 1.0,
-    "debito": 0.956268221574344,
+    "debito": 0.9345238095238095,
     "entrate": 1.0,
     "popolazione": 1.0,
-    "trend": 0.9252336448598131,
+    "trend": 0.9391304347826087,
     "anni_significativi": 1.0,
-    "appalti": 0.9591836734693877,
-    "tesoreria": 0.057971014492753624,
-    "confronti": 0.890625
+    "appalti": 0.9706840390879479,
+    "tesoreria": 0.075,
+    "confronti": 0.8995983935742972
   },
   "weights": {
-    "rf": 2.4799926349855714,
-    "gb": 2.545531271604435,
-    "et": 2.3335298968434675
+    "rf": 2.465910149097345,
+    "gb": 2.5606062453143714,
+    "et": 2.2546456307049265
   },
   "reliability": {
     "kind": "uncalibrated_selection_margin",
     "review_threshold": 0.6,
-    "mean_test_margin": 0.7717503341187064
+    "mean_test_margin": 0.762736097195787
   },
   "versions": {
     "python": "3.12.14",

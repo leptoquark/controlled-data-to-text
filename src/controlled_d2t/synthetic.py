@@ -4,13 +4,21 @@ from pathlib import Path
 import numpy as np
 from .schema import FEATURES, INDICATORS, BLOCKS
 
+def entity_name(index, territorial):
+    roots=["Borgo", "Monte", "Valle", "Poggio", "Colle", "Castel", "Piano", "Fonte", "Rocca", "Prato", "Bosco", "Lago", "Rio", "Campo", "Ponte", "Porto"]
+    endings=["chiaro", "sereno", "verde", "fiorito", "dorato", "alto", "bello", "largo", "nuovo", "antico", "quieto", "rotondo", "bianco", "lungo", "santo", "vivo", "ombroso", "aperto", "profondo", "azzurro"]
+    districts=["del Piano", "sul Rio", "dei Colli", "della Valle", "al Monte", "delle Fonti", "del Bosco", "sul Lago"]
+    place=roots[index%len(roots)]+endings[(index//len(roots))%len(endings)]+" "+districts[(index//(len(roots)*len(endings)))%len(districts)]
+    kind="Comune di" if territorial else ["Agenzia territoriale per i servizi di", "Consorzio per lo sviluppo di", "Ente per il patrimonio di", "Azienda per i servizi ambientali di"][(index//3)%4]
+    return kind+" "+place
+
 def make_dataset(n=1200, seed=42):
     rng=np.random.default_rng(seed)
     docs=[]
     for i in range(n):
         territorial=bool(rng.random()<0.75)
         pop=int(np.clip(rng.lognormal(9,1.4),500,2000000)) if territorial else None
-        income=float(round((pop or rng.integers(2000,100000))*rng.uniform(800,3000),2))
+        income=float(round(pop*rng.uniform(900,2200) if territorial else np.clip(rng.lognormal(16.5,1.1),2000000,800000000),2))
         annual={}
         initial=rng.uniform(-0.25,0.35); drift=rng.normal(0,0.04)
         for j in range(int(rng.integers(1,7))):
@@ -20,9 +28,10 @@ def make_dataset(n=1200, seed=42):
         ratios=[v["debito_su_entrate"] for v in annual.values()]
         ratio=float(np.mean(ratios)); eff=float(rng.uniform(0,100))
         sust=float(np.clip(100-abs(ratio)*200,0,100)); risk=float(np.clip(abs(ratio)*180+rng.normal(10,8),0,100))
-        procurement=float(income*rng.uniform(0.05,0.7)) if rng.random()<0.85 else None
-        staff=int(rng.integers(10,1000)) if rng.random()<0.9 else None
-        d={"codice_ente":f"SYN-{i:06d}","denominazione":f"{'Comune' if territorial else 'Ente'} dimostrativo {i+1}","categoria":"COMUNE" if territorial else "ENTE STRUMENTALE", "synthetic":True,"territoriale":territorial,
+        income=float(np.mean([v["entrate_correnti"] for v in annual.values()]))
+        procurement=float(round(income*rng.uniform(0.08,0.45),2)) if rng.random()<0.85 else None
+        staff=max(3,int(round(pop*rng.uniform(0.004,0.009) if territorial else income*rng.uniform(0.15,0.35)/rng.uniform(50000,75000)))) if rng.random()<0.9 else None
+        d={"codice_ente":f"SYN-{i:06d}","denominazione":entity_name(i,territorial),"categoria":"COMUNE" if territorial else "ENTE STRUMENTALE", "synthetic":True,"territoriale":territorial,
             "popolazione_media":pop,"entrate_medie":income,"indice_medio_debito_su_entrate":ratio,
             "variazione_media":float(np.mean([v["variazione_debito"] for v in annual.values()])),
             "valori_annuali":annual,"importo_appalti_media":procurement,"PERSONALE":staff,

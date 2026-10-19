@@ -13,10 +13,10 @@ st.title("Data-to-text controllato")
 st.caption("Framework dimostrativo • testi da template • selezione dei blocchi ispezionabile")
 st.warning("Ambiente di ricerca: i profili inclusi sono sintetici. Le etichette sono simulate e i risultati non replicano gli esperimenti del paper.")
 @st.cache_data
-def examples(): return load(ROOT/'data/synthetic.jsonl')
+def examples(dataset_version): return load(ROOT/'data/synthetic.jsonl')
 tab1,tab2,tab3=st.tabs(['Genera e ispeziona','Risultati','Metodo e riuso'])
 with tab1:
-    docs=examples()
+    docs=examples((ROOT/'data/synthetic.jsonl').stat().st_mtime_ns)
     chosen=st.selectbox('Profilo fittizio',range(min(100,len(docs))),format_func=lambda i:docs[i]['denominazione'])
     uploaded=st.file_uploader('Oppure carica un profilo JSON',type=['json'])
     try:

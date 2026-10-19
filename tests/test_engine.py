@@ -38,3 +38,13 @@ def test_annual_order_invariance():
     assert generate(d)==a
 def test_rules_route_for_human_review():
     assert generate(profile())['human_review_required']
+
+def test_realistic_names_and_size_consistency():
+    docs=make_dataset(1200)
+    assert len({d['denominazione'] for d in docs})==1200
+    assert all('dimostrativo' not in d['denominazione'] for d in docs)
+    for d in docs:
+        if d['territoriale'] and d['PERSONALE'] is not None:
+            assert d['PERSONALE']<=max(3,round(d['popolazione_media']*0.009))
+        if d['importo_appalti_media'] is not None:
+            assert 0.079<d['importo_appalti_media']/d['entrate_medie']<0.451

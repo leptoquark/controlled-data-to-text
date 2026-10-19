@@ -5,7 +5,7 @@
 - Addestramento e confronto di RF, comitato a maggioranza, comitato pesato e baseline a regole.
 - Salvataggio di modello, split, metriche, intervalli bootstrap e importanze globali.
 - Generazione da CLI su un profilo di esempio.
-- 11 test superati: regole numeriche, determinismo, valori mancanti e zero, tracciabilità, ordine annualità e due percorsi della demo.
+- 12 test superati: regole numeriche, determinismo, valori mancanti e zero, tracciabilità, ordine annualità e due percorsi della demo.
 - `pip check`: nessuna dipendenza incompatibile.
 - Server locale avviato e endpoint health verificato: `ok`.
 
