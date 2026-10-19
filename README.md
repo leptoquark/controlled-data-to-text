@@ -14,7 +14,7 @@ py -m venv .venv
 Per riprodurre le versioni verificate usare prima `pip install -r requirements-lock.txt`, poi `pip install -e ".[test]"`.
 La demo include già dataset e risultati. Se il modello locale non è compatibile con la versione di scikit-learn installata, rigenerarlo con il comando experiment.
 
-L'interfaccia è organizzata in tre pagine: **Amministrazioni** (ricerca, indicatori, spiegazioni e andamento annuale), **Risultati e confronti** (studio pubblicato ed esperimenti separati), **Come funziona** (percorso e documentazione). Le opzioni JSON e le evidenze dettagliate sono apribili su richiesta. Stile e tema sono locali, senza font o immagini da scaricare.
+L'interfaccia è organizzata in tre pagine: **Amministrazioni** (scelta della tipologia, ricerca degli enti filtrati, indicatori, spiegazioni e andamento annuale), **Risultati e confronti** (studio pubblicato ed esperimenti separati), **Come funziona** (percorso e documentazione). Ogni tipologia riporta il numero di enti disponibili. Le opzioni JSON e le evidenze dettagliate sono apribili su richiesta. Stile e tema sono locali, senza font o immagini da scaricare.
 
 ## Linux/macOS
 ```bash

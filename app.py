@@ -29,6 +29,11 @@ def section(kicker,title,description=None):
     st.subheader(title)
     if description: st.caption(description)
 
+def typology(doc):
+    value=str(doc.get('tipologia_put') or doc.get('categoria') or 'Tipologia non disponibile').strip()
+    known={'COMUNE':'Comune','ENTE STRUMENTALE':'Ente strumentale','UNIONE_COMUNI':'Unione di Comuni','CITTA_METROP':'Città metropolitana','CONSIGLI_REG':'Consiglio regionale'}
+    return known.get(value,value.replace('_',' ').capitalize() if value.isupper() else value)
+
 st.set_page_config(page_title='Trasparenza · Dati e spiegazioni',page_icon='◈',layout='wide')
 st.markdown('<style>'+ (ROOT/'assets/style.css').read_text(encoding='utf-8')+'</style>',unsafe_allow_html=True)
 
@@ -55,10 +60,22 @@ else:
 
 tab1,tab2,tab3=st.tabs(['Amministrazioni','Risultati e confronti','Come funziona'])
 with tab1:
-    section('01 · Esplora','Scegli l’amministrazione','Digita una parte del nome nel campo di ricerca per trovare l’ente che ti interessa.')
-    ordered=sorted(range(len(docs)),key=lambda i:docs[i]['denominazione'].casefold())
-    default=next((index for index,i in enumerate(ordered) if docs[i].get('categoria')=='COMUNE'),0)
-    chosen=st.selectbox('Cerca per denominazione o codice',ordered,index=default,format_func=lambda i:docs[i]['denominazione']+' · '+docs[i]['codice_ente'],key='administration')
+    section('01 · Esplora','Scegli l’amministrazione','Seleziona prima la tipologia, poi cerca l’amministrazione per nome o codice nell’elenco filtrato.')
+    groups={}
+    for i,doc in enumerate(docs): groups.setdefault(typology(doc),[]).append(i)
+    types=sorted(groups,key=str.casefold)
+    default_type=max([kind for kind in types if kind.startswith('Comune')] or types,key=lambda kind:len(groups[kind]))
+    if st.session_state.get('administration_type') not in groups:
+        st.session_state['administration_type']=default_type
+    type_column,entity_column=st.columns([1,2])
+    with type_column:
+        selected_type=st.selectbox('1. Tipologia di amministrazione',types,format_func=lambda kind:f'{kind} ({italian(len(groups[kind]))})',key='administration_type')
+    ordered=sorted(groups[selected_type],key=lambda i:docs[i]['denominazione'].casefold())
+    if st.session_state.get('administration') not in ordered:
+        st.session_state['administration']=ordered[0]
+    with entity_column:
+        chosen=st.selectbox('2. Amministrazione · cerca per nome o codice',ordered,format_func=lambda i:docs[i]['denominazione']+' · '+docs[i]['codice_ente'],key='administration')
+    st.caption(f'{italian(len(ordered))} amministrazioni nella tipologia selezionata.')
     try:
         with st.expander('Usa un altro profilo o modifica i dati'):
             st.caption('Opzione avanzata: carica un file JSON o modifica il profilo per una nuova generazione. I testi originali restano riferiti alla copia della dashboard.')

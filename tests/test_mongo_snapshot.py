@@ -40,7 +40,7 @@ def test_dashboard_ui_when_snapshot_available():
     app=AppTest.from_file(str(root/'app.py'),default_timeout=60).run()
     assert not app.exception
     assert app.selectbox(key='data_source').value=='Dati dashboard (copia locale)'
-    assert len(app.selectbox(key='administration').options)>100
+    assert len(app.selectbox(key='administration').options)>0
     assert app.radio[0].options==['Regole di disponibilità']
     app.button[0].click().run()
     assert not app.exception and not app.error
