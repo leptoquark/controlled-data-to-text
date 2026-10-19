@@ -36,7 +36,13 @@ I risultati includono metriche, split con identificativi, versioni, hash dataset
 ```bash
 docker compose up --build
 ```
-Aprire http://localhost:8501. La build installa dipendenze da Internet. Non richiede MongoDB o credenziali.
+Aprire http://localhost:8502. La porta del container resta 8501; la porta locale predefinita è 8502 per consentire l'esecuzione contemporanea della demo Python.
+Per scegliere un'altra porta in PowerShell:
+```powershell
+$env:DEMO_PORT = "8503"
+docker compose up --build
+```
+In questo caso aprire http://localhost:8503. La build installa dipendenze da Internet. Non richiede MongoDB o credenziali.
 
 ## Struttura
 - `src/controlled_d2t`: framework, CLI, esperimenti e modulo legacy isolato
