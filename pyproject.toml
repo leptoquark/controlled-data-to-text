@@ -6,7 +6,7 @@ name = "controlled-data-to-text"
 version = "0.1.0"
 description = "Laboratorio riproducibile di data-to-text controllato per dashboard pubbliche"
 requires-python = ">=3.11"
-dependencies = ["numpy>=1.26,<3", "pandas>=2.2,<3", "scikit-learn>=1.5,<2", "streamlit>=1.40,<2"]
+dependencies = ["numpy>=1.26,<3", "pandas>=2.2,<3", "scikit-learn>=1.5,<2", "streamlit>=1.66,<2"]
 [project.optional-dependencies]
 test = ["pytest>=8,<10"]
 export = ["pymongo>=4.10,<5"]

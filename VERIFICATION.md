@@ -5,7 +5,8 @@
 - Addestramento e confronto di RF, comitato a maggioranza, comitato pesato e baseline a regole.
 - Salvataggio di modello, split, metriche, intervalli bootstrap e importanze globali.
 - Generazione da CLI su un profilo di esempio.
-- 15 test: regole numeriche, determinismo, valori mancanti e zero, tracciabilità, ordine annualità, due percorsi del laboratorio, adattatore MongoDB, validazione della copia e percorso della demo sui profili reali. I due test sulla copia locale sono saltati quando questa non è disponibile.
+- 16 test superati: regole numeriche, determinismo, valori mancanti e zero, tracciabilità, ordine annualità, due percorsi del laboratorio, persistenza della spiegazione dopo un aggiornamento della pagina e invalidazione al cambio di ente, adattatore MongoDB, validazione della copia e percorso della demo sui profili reali. I due test sulla copia locale sono saltati quando questa non è disponibile.
+- Interfaccia verificata nel browser a 1440 e 390 pixel di larghezza: scheda amministrazione, risultati e adattamento mobile; nessun errore applicativo e nessuna eccedenza della larghezza del documento. Tema e stile sono inclusi localmente.
 - `pip check`: nessuna dipendenza incompatibile.
 - Server locale avviato e endpoint health verificato: `ok`.
 
