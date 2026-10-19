@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+[project]
+name = "controlled-data-to-text"
+version = "0.1.0"
+description = "Laboratorio riproducibile di data-to-text controllato per dashboard pubbliche"
+requires-python = ">=3.11"
+dependencies = ["numpy>=1.26,<3", "pandas>=2.2,<3", "scikit-learn>=1.5,<2", "streamlit>=1.40,<2"]
+[project.optional-dependencies]
+test = ["pytest>=8,<10"]
+[project.scripts]
+d2t = "controlled_d2t.cli:main"
+[tool.setuptools.packages.find]
+where = ["src"]
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.setuptools.package-data]
+controlled_d2t = ["templates.json"]

@@ -1,0 +1,48 @@
+{
+  "notice": "Trascrizione dal paper, tabelle 2 e 3. Valori non ricalcolati da questo progetto.",
+  "source": "https://claudiobiancalana.it/assets/publications/biancalana-sbicca-ital-ia-2026.pdf",
+  "administrations": 11033,
+  "split": {
+    "train": 7723,
+    "validation": 1655,
+    "test": 1655
+  },
+  "ablation": [
+    {
+      "configurazione": "Comitato completo",
+      "micro_f1": 0.901,
+      "macro_f1": 0.879,
+      "micro_precision": 0.908,
+      "micro_recall": 0.894
+    },
+    {
+      "configurazione": "Random Forest",
+      "micro_f1": 0.872,
+      "macro_f1": 0.851,
+      "micro_precision": 0.881,
+      "micro_recall": 0.863
+    },
+    {
+      "configurazione": "Comitato maggioranza",
+      "micro_f1": 0.887,
+      "macro_f1": 0.864,
+      "micro_precision": 0.895,
+      "micro_recall": 0.879
+    },
+    {
+      "configurazione": "Sole regole",
+      "micro_f1": 0.814,
+      "macro_f1": 0.792,
+      "micro_precision": 0.831,
+      "micro_recall": 0.798
+    }
+  ],
+  "human_evaluation": {
+    "texts": 50,
+    "experts": 3,
+    "accuracy": 4.3,
+    "readability": 4.1,
+    "appropriateness": 4.5,
+    "krippendorff_alpha_approx": 0.71
+  }
+}

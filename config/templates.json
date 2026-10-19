@@ -1,0 +1,36 @@
+{
+  "introduzione": [
+    "La scheda di {nome} descrive gli indicatori disponibili.",
+    "Di seguito è presentato il profilo di {nome}."
+  ],
+  "diagnosi": [
+    "Il profilo presenta efficienza {eff}, sostenibilità {sost} e rischio {risk} su scala 0–100."
+  ],
+  "indici": [
+    "Gli indici sintetici disponibili sono: efficienza {eff}, sostenibilità {sost}, rischio {risk} (scala 0–100)."
+  ],
+  "debito": [
+    "Il rapporto medio tra flusso netto di debito ed entrate è {ratio}. Il segno indica {direction}; non misura il debito residuo."
+  ],
+  "entrate": [
+    "Le entrate correnti medie ammontano a {income} euro."
+  ],
+  "popolazione": [
+    "La popolazione media del territorio è di {population} abitanti."
+  ],
+  "trend": [
+    "Il rapporto passa da {first} nel {first_year} a {last} nel {last_year}. Il confronto descrive gli estremi disponibili."
+  ],
+  "anni_significativi": [
+    "Il maggiore scostamento assoluto dallo zero è nel {peak_year}, con rapporto {peak}."
+  ],
+  "appalti": [
+    "Il valore medio annuo degli appalti è {procurement} euro."
+  ],
+  "tesoreria": [
+    "Le anticipazioni medie registrate ammontano a {treasury} euro."
+  ],
+  "confronti": [
+    "Il rapporto dell’ente è {ratio}; quello medio regionale è {regional}."
+  ]
+}
