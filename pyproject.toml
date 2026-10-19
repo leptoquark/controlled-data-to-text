@@ -9,6 +9,7 @@ requires-python = ">=3.11"
 dependencies = ["numpy>=1.26,<3", "pandas>=2.2,<3", "scikit-learn>=1.5,<2", "streamlit>=1.40,<2"]
 [project.optional-dependencies]
 test = ["pytest>=8,<10"]
+export = ["pymongo>=4.10,<5"]
 [project.scripts]
 d2t = "controlled_d2t.cli:main"
 [tool.setuptools.packages.find]

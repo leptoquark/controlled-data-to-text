@@ -11,19 +11,39 @@ ROOT=Path(__file__).parent
 st.set_page_config(page_title="Data-to-text controllato",layout="wide")
 st.title("Data-to-text controllato")
 st.caption("Framework dimostrativo • testi da template • selezione dei blocchi ispezionabile")
-st.warning("Ambiente di ricerca: i profili inclusi sono sintetici. Le etichette sono simulate e i risultati non replicano gli esperimenti del paper.")
 @st.cache_data
-def examples(dataset_version): return load(ROOT/'data/synthetic.jsonl')
+def examples(dataset_path,dataset_version): return load(dataset_path)
+
+real_path=ROOT/'data/real/profiles.jsonl'
+sources=(['Dati dashboard (copia locale)'] if real_path.exists() else [])+['Laboratorio dimostrativo']
+source=st.sidebar.selectbox('Origine dei profili',sources,key='data_source')
+is_real=source=='Dati dashboard (copia locale)'
+dataset_path=real_path if is_real else ROOT/'data/synthetic.jsonl'
+if is_real:
+    manifest_path=real_path.with_name('manifest.json')
+    manifest=json.loads(manifest_path.read_text(encoding='utf-8'))
+    st.caption(f"Copia locale di {manifest['source_database']}.{manifest['source_collection']} • {manifest['records_exported']:,} amministrazioni • aggiornamento {manifest['exported_at_utc'][:10]} • nessuna connessione al database")
+    with st.sidebar.expander('Dettagli della copia locale'): st.json(manifest)
+else:
+    st.warning('Profili dimostrativi e policy simulate. Le metriche del laboratorio non valutano i dati della dashboard.')
 tab1,tab2,tab3=st.tabs(['Genera e ispeziona','Risultati','Metodo e riuso'])
 with tab1:
-    docs=examples((ROOT/'data/synthetic.jsonl').stat().st_mtime_ns)
-    chosen=st.selectbox('Profilo fittizio',range(min(100,len(docs))),format_func=lambda i:docs[i]['denominazione'])
+    docs=examples(str(dataset_path),dataset_path.stat().st_mtime_ns)
+    chosen=st.selectbox('Amministrazione',sorted(range(len(docs)),key=lambda i:docs[i]['denominazione'].casefold()),format_func=lambda i:docs[i]['denominazione']+' · '+docs[i]['codice_ente'],key='administration')
     uploaded=st.file_uploader('Oppure carica un profilo JSON',type=['json'])
     try:
         doc=json.loads(uploaded.getvalue()) if uploaded else docs[chosen]
+        if not uploaded and is_real:
+            with st.expander('Spiegazioni originali della dashboard',expanded=True):
+                st.markdown(doc.get('narrazione_breve_md') or 'Testo breve non disponibile.')
+            with st.expander('Spiegazione originale estesa'):
+                st.markdown(doc.get('narrazione_estesa_md') or 'Testo esteso non disponibile.')
         edited=st.text_area('Profilo di ingresso (modificabile)',value=json.dumps(doc,ensure_ascii=False,indent=2),height=260)
         profile=json.loads(edited)
-        mode=st.radio('Selettore',['Regole di disponibilità','Comitato ML dimostrativo'],horizontal=True)
+        options=['Regole di disponibilità']
+        if profile.get('synthetic') is True and 'features' in profile: options.append('Comitato ML dimostrativo')
+        mode=st.radio('Selettore',options,horizontal=True)
+        if profile.get('synthetic') is not True: st.caption('Generazione dai dati disponibili. Il modello dimostrativo non è applicato ai profili della dashboard.')
         if st.button('Genera spiegazione',type='primary'):
             errors=validate(profile)
             if errors: st.error('; '.join(errors))
@@ -40,6 +60,7 @@ with tab1:
                 result=generate(profile,selected,confidence)
                 st.info('Stato: '+result['status']+' — nessuna pubblicazione automatica')
                 if profile.get('synthetic') is True: st.caption('Profilo dichiarato sintetico')
+                elif not uploaded and is_real: st.caption('Profilo esportato dalla dashboard; verifiche strutturali e numeriche applicate alla nuova spiegazione.')
                 else: st.caption('Profilo caricato dall’utente: origine non verificata')
                 st.text(result['text'])
                 if diagnostics is not None: st.dataframe(diagnostics,hide_index=True)

@@ -2,7 +2,7 @@
 
 Ambiente locale per generazione controllata, selezione dei blocchi e confronto dei risultati. Basato sul paper di Claudio Biancalana e Fabrizio Sbicca e sul generatore dell'archivio fornito dall'utente.
 
-**I dati inclusi sono sintetici e le etichette sono simulate. I risultati locali non sono una replica dei risultati scientifici pubblicati.**
+**Il dataset di laboratorio e le sue etichette sono simulati. Quando presente, la copia locale dei profili MongoDB viene usata come fonte predefinita della demo. Le metriche del laboratorio non sono una valutazione dei profili reali né una replica dei risultati scientifici pubblicati.**
 
 ## Avvio rapido Windows (PowerShell)
 Da questa cartella, con Python 3.11 o successivo:
@@ -57,6 +57,21 @@ In questo caso aprire http://localhost:8503. La build installa dipendenze da Int
 ## Compatibilità con lo scheduler
 Il modulo `legacy.narrazione_cittadina(doc)` conserva i testi storici brevi ed estesi senza dipendenze MongoDB; è un percorso di compatibilità, non il generatore validato della demo. Non avviare gli script di ingestion per provare questo laboratorio.
 Lo ZIP originale rimane separato e non è ridistribuito. Nessun certificato, endpoint interno, configurazione di esercizio o rubrica è necessario nel nuovo progetto.
+
+## Usare una copia locale dei dati MongoDB
+La demo seleziona automaticamente `data/real/profiles.jsonl` quando presente. Questa copia è inclusa nell'immagine durante `docker compose up --build`: il container non contatta MongoDB e non richiede il driver MongoDB.
+Sono disponibili tutte le amministrazioni esportate nel selettore ricercabile, i testi originali brevi ed estesi e la nuova generazione a regole. Le metriche del laboratorio rimangono separate: non sono valutazioni dei profili reali.
+
+Per aggiornare la copia, sul computer dove è raggiungibile il database:
+```powershell
+.\.venv\Scripts\python.exe -m pip install -e ".[export]"
+.\.venv\Scripts\python.exe -m controlled_d2t.mongo_snapshot --uri mongodb://127.0.0.1:27017 --database indicatori --collection debito_media
+docker compose up --build
+```
+L'export è in sola lettura, seleziona i record con `rappresentabile=true` e copia soltanto i campi necessari a profili e spiegazioni. Codici fiscali, indirizzi, credenziali e collection estranee non sono esportati.
+I numeri non finiti diventano null; zero resta zero. I record che non superano la validazione sono esclusi dal selettore e registrati in `data/real/rejected.json`, senza correggere silenziosamente le incongruenze.
+`manifest.json` contiene origine, conteggi, data e hash del file esportato. La lettura avviene con un cursore ordinato; per un export coerente evitare aggiornamenti contemporanei della collection.
+`data/real/` è esclusa da Git: un clone GitHub richiede l'export locale o il trasferimento di questa cartella prima della build. Il codice di esportazione usa una dipendenza opzionale, non richiesta nell'immagine.
 
 ## Sicurezza dei modelli
 Caricare soltanto il modello pickle creato localmente da questo progetto. Non caricare pickle ricevuti da terzi. La demo non accetta upload di modelli.
