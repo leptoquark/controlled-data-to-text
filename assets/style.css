@@ -1,6 +1,6 @@
 :root { --ink: #142d3b; --muted: #5a6e7c; --teal: #087e83; --line: #dce6ea; }
 .stApp { background: #f3f6f8; color: var(--ink); }
-.stMainBlockContainer { max-width: 1240px; padding-top: 2.4rem; padding-bottom: 4rem; }
+.stMainBlockContainer { max-width: 1240px; padding-top: 4.5rem; padding-bottom: 4rem; }
 [data-testid="stSidebar"] { background: #112e3e; }
 [data-testid="stSidebar"] h2, [data-testid="stSidebar"] h3,
 [data-testid="stSidebar"] p, [data-testid="stSidebar"] label,

@@ -40,3 +40,34 @@ def test_typology_filters_entities_and_resets_selection():
     chosen=app.selectbox(key='administration').value
     assert docs[chosen]['categoria']=='ENTE STRUMENTALE'
     assert len(app.get('download_button'))==0
+
+def test_lazy_pages_keep_entity_draft_and_generated_reading():
+    import json
+    root=Path(__file__).resolve().parents[1]
+    app=AppTest.from_file(str(root/'app.py'),default_timeout=60).run()
+    app.selectbox(key='data_source').set_value('Laboratorio dimostrativo').run()
+    app.selectbox(key='administration_type').set_value('Ente strumentale').run()
+    app.selectbox(key='administration').select_index(2).run()
+    chosen=app.selectbox(key='administration').value
+    profile=json.loads(app.text_area[0].value)
+    profile['denominazione']='Profilo per verifica navigazione'
+    app.text_area[0].set_value(json.dumps(profile)).run()
+    app.button[0].click().run()
+    assert len(app.get('download_button'))==2
+    assert not any(s.value=='Lo studio pubblicato' for s in app.subheader)
+    app.session_state['main_page']='Risultati e confronti'
+    app.run()
+    assert not app.exception
+    assert any(s.value=='Lo studio pubblicato' for s in app.subheader)
+    assert len(app.button)==0
+    app.session_state['main_page']='Come funziona'
+    app.run()
+    assert not app.exception
+    assert not app.dataframe
+    app.session_state['main_page']='Amministrazioni'
+    app.run()
+    assert not app.exception
+    assert app.selectbox(key='administration_type').value=='Ente strumentale'
+    assert app.selectbox(key='administration').value==chosen
+    assert json.loads(app.text_area[0].value)['denominazione']=='Profilo per verifica navigazione'
+    assert len(app.get('download_button'))==2
