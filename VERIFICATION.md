@@ -1,5 +1,30 @@
 # Verifiche eseguite
 
+## Revisione del 20 ottobre 2026
+
+Sul commit `d6dd4c1aac396147b1d8d100d372447a12bc810a`, GitHub Actions ha completato
+con successo la verifica su Ubuntu e Python 3.12: 49 test superati e 2 saltati
+per assenza dello snapshot locale non versionato. Sono stati rigenerati 1.200
+profili sintetici e il modello di prova (seed 42, 20 repliche bootstrap per il
+controllo CI, non per aggiornare le metriche scientifiche). `pip check`, build
+Docker e controllo HTTP dell'endpoint health del container sono passati.
+
+Esecuzione verificabile: https://github.com/leptoquark/controlled-data-to-text/actions/runs/39406354666
+
+I test comprendono gli input non validi di confidenza e soglia, i confini del
+review gate, la tipizzazione della territorialità e il perimetro degli stati di
+bozza. Nessun esito autorizza la pubblicazione. Queste verifiche riguardano il
+laboratorio, non la validazione del servizio ANAC o la replica del paper.
+Colab cloud e dati reali non sono stati verificati in questa esecuzione.
+Il cambio di stato da `validated_draft` a `automated_checks_passed_draft` richiede
+l'aggiornamento di eventuali integrazioni che confrontano il vecchio nome.
+
+## Verifiche precedenti nell'ambiente Windows originale
+
+Le verifiche seguenti descrivono l'ambiente originale e non lo snapshot pubblico
+o la verifica CI sopra indicata. I limiti Docker/Linux riportati in questa parte
+si riferiscono a quelle esecuzioni precedenti.
+
 - Ambiente Python 3.12.14, dipendenze fissate in `requirements-lock.txt`.
 - Generazione di 1200 profili sintetici con seed 42.
 - Addestramento e confronto di RF, comitato a maggioranza, comitato pesato e baseline a regole.
@@ -16,3 +41,4 @@
 È stato eseguito un export in sola lettura dal database locale `indicatori`, collection `debito_media`: 11.364 record letti, 11.360 validi esportati e 4 scartati per incoerenze annuali. Tutti i profili esportati conservano le spiegazioni originali. I file della copia sono locali e non versionati.
 Sono stati aggiunti controlli sull'adattatore, validazione dell'intera copia e verifica della demo sui profili reali. Non sono stati eseguiti importazioni dalle fonti istituzionali, addestramento su dati reali o build Docker. La configurazione Docker è fornita ma non verificata in questo ambiente.
 La compatibilità Linux/macOS è prevista dal progetto, ma le esecuzioni riportate sono state effettuate su Windows.
+
