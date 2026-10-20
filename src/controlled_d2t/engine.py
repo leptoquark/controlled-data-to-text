@@ -8,7 +8,13 @@ def fmt(v):
     return "non disponibile" if number(v) is None else f"{v:,.3f}".replace(",","_").replace(".",",").replace("_",".")
 def generate(doc, selected=None, confidence=None, threshold=0.6, template_path=None):
     errors=validate(doc)
-    if errors: return {"status":"blocked","errors":errors,"text":"","blocks":[],"decisions":[]}
+    if number(threshold) is None or not 0 <= threshold <= 1:
+        errors.append("threshold: finite number in [0, 1] required")
+    if confidence is not None and (number(confidence) is None or not 0 <= confidence <= 1):
+        errors.append("confidence: finite number in [0, 1] required, or None")
+    if errors:
+        return {"status":"blocked","errors":errors,"text":"","blocks":[],"decisions":[],
+                "human_review_required":True,"publication_authorized":False}
     templates=json.loads(Path(template_path or DEFAULT_TEMPLATES).read_text(encoding="utf-8"))
     ratio=number(doc.get("indice_medio_debito_su_entrate"))
     annual=sorted([(str(y),number(v.get("debito_su_entrate"))) for y,v in doc.get("valori_annuali",{}).items() if number(v.get("debito_su_entrate")) is not None],key=lambda pair:int(pair[0]))
@@ -30,4 +36,5 @@ def generate(doc, selected=None, confidence=None, threshold=0.6, template_path=N
     canonical=json.dumps(doc,sort_keys=True,ensure_ascii=False,allow_nan=False)
     # This score is a conservative model agreement measure, NOT a calibrated probability of factuality.
     review=confidence is None or confidence<threshold
-    return {"status":"review_required" if review else "validated_draft","errors":[],"confidence":confidence,"confidence_kind":"uncalibrated_selection_margin" if confidence is not None else "unavailable", "human_review_required":review,"validation":"typed_values_and_annual_arithmetic; surface_numbers_formatted_from_evidence","input_sha256":hashlib.sha256(canonical.encode()).hexdigest(),"templates_sha256":hashlib.sha256(json.dumps(templates,sort_keys=True,ensure_ascii=False).encode()).hexdigest(),"blocks":blocks,"decisions":decisions,"text":"\n\n".join(b["text"] for b in blocks)}
+    return {"status":"review_required" if review else "automated_checks_passed_draft","errors":[],"confidence":confidence,"confidence_kind":"uncalibrated_selection_margin" if confidence is not None else "unavailable", "human_review_required":review,"publication_authorized":False,"validation_scope":{"input_types":True,"annual_arithmetic":True,"numbers_formatted_from_evidence":True,"source_truth_verified":False,"historical_aggregates_reconciled":False,"human_approval_recorded":False},"validation":"typed_values_and_annual_arithmetic; surface_numbers_formatted_from_evidence","input_sha256":hashlib.sha256(canonical.encode()).hexdigest(),"templates_sha256":hashlib.sha256(json.dumps(templates,sort_keys=True,ensure_ascii=False).encode()).hexdigest(),"blocks":blocks,"decisions":decisions,"text":"\n\n".join(b["text"] for b in blocks)}
+

@@ -19,6 +19,8 @@ Il margine medio rispetto a 0,5 è un segnale NON calibrato di confidenza sulla 
 L'importanza delle feature è globale, aggregata dai modelli ad albero; per singolo caso si mostrano probabilità dei membri e decisioni.
 
 ### Fedeltà numerica e controllo
+Il rapporto espone `validation_scope`: i controlli sui tipi e sull'aritmetica annuale non attestano la veridicità delle fonti o la riconciliazione di tutti gli aggregati storici. Lo stato `automated_checks_passed_draft` sostituisce `validated_draft` per evitare di confondere i controlli automatici con l'approvazione umana. `publication_authorized` resta falso in ogni esito.
+Confidenza e soglia devono essere numeri finiti in [0, 1]; stringhe, booleani e valori fuori intervallo bloccano la generazione. La confidenza assente richiede revisione, mentre l'uguaglianza alla soglia supera il confronto di instradamento. `territoriale` ammette soltanto booleani, null o campo assente.
 Il validatore verifica tipi, valori finiti, scale esplicite 0–100 e coerenza rapporto × entrate = variazione per le annualità complete.
 I numeri nei template distribuiti sono formattati direttamente dai dati, senza riscrittura libera; il rapporto conserva le evidenze.
 Non verifica la veridicità delle fonti, la correttezza economica degli indici a monte o la coerenza di ogni aggregato storico.
@@ -28,3 +30,4 @@ Le modifiche ai template richiedono revisione: un template personalizzato può i
 Esportare da MongoDB un profilo o JSONL, mappare esplicitamente territorialità e scale, definire le 42 feature reali e raccogliere etichette indipendenti da esperti. Separare gli enti tra split, fissare il periodo e rivalutare soglie e confidenza.
 I profili grezzi dello scheduler si possono provare con il selettore a regole dopo il mapping. Il comitato richiede le feature esplicite e non è qualificato per uso reale.
 Prima di un rilascio istituzionale servono validazione umana più ampia, misure di accordo tra annotatori e un processo di revisione e pubblicazione esterno.
+

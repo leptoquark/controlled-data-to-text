@@ -17,3 +17,17 @@ Il blocco tesoreria ha F1 0.075 nel comitato pesato: manca una feature dedicata 
 
 Le etichette sono create da una policy simulata, non da esperti. I valori del paper derivano da un altro dataset e protocollo e non sono direttamente confrontabili.
 Per una valutazione scientifica servono dati reali, feature condivise e annotazioni indipendenti. I dettagli riproducibili sono in `latest/metrics.json`.
+
+# Interpreting the saved synthetic run
+
+The saved weighted committee has Micro F1 about 0.9525. Majority voting is slightly
+higher on Micro F1, while availability rules are higher on Macro F1. Treasury
+(`tesoreria`) has F1 0.075: the aggregate score conceals a difficult block. These
+are results against synthetic policy labels, not evidence of superiority or
+validation of the operational ANAC service.
+
+For new experiments, inspect per-block positive-label counts in each split,
+precision and recall as well as F1, and whether the feature schema contains the
+required signal. Investigate the treasury score before adapting the selector.
+Do not tune against the held-out test to improve a headline metric.
+

@@ -13,6 +13,8 @@ def validate(doc):
     if not isinstance(doc,dict): return ["Il profilo deve essere un oggetto JSON."]
     if not isinstance(doc.get("codice_ente"),str) or not doc["codice_ente"].strip(): errors.append("codice_ente obbligatorio")
     if not isinstance(doc.get("denominazione"),str) or not doc["denominazione"].strip(): errors.append("denominazione obbligatoria")
+    if doc.get("territoriale") is not None and not isinstance(doc["territoriale"],bool):
+        errors.append("territoriale: booleano richiesto, oppure null")
     numeric=["indice_medio_debito_su_entrate","entrate_medie","variazione_media","popolazione_media","importo_appalti_media","anticipazioni_medie","indice_efficienza","indice_sostenibilita","indice_rischio","media_regionale_rapporto"]
     for key in numeric:
         v=doc.get(key)
@@ -34,3 +36,4 @@ def validate(doc):
         if not isinstance(f,dict) or set(f)!=set(FEATURES): errors.append("Sono richieste le 42 feature dello schema dimostrativo")
         elif any(number(v) is None for v in f.values()): errors.append("Feature non finite")
     return errors
+
