@@ -2,7 +2,7 @@
 
 Ambiente locale per generazione controllata, selezione dei blocchi e confronto dei risultati. Basato sul paper di Claudio Biancalana e Fabrizio Sbicca e su un componente storico descritto in `PROVENANCE.md`. Il laboratorio è distinto dal servizio in produzione e dagli esperimenti originali del paper.
 
-Per il quadro generale in inglese e lo stato del rilascio consultare [README.md](README.md). Lo stato `automated_checks_passed_draft` indica il superamento dei controlli automatici dichiarati, non l'approvazione alla pubblicazione. `publication_authorized` resta sempre falso. Licenza e titolarità sono da definire prima del rilascio pubblico.
+Per il quadro generale in inglese e lo stato del rilascio consultare [README.md](README.md). Lo stato `automated_checks_passed_draft` indica il superamento dei controlli automatici dichiarati, non l'approvazione alla pubblicazione. `publication_authorized` resta sempre falso. Il software è distribuito sotto licenza MIT: nelle copie redistribuite vanno mantenuti copyright e licenza. Si richiede inoltre di citare autori, repository e paper secondo `CITATION.cff`; tale richiesta non aggiunge restrizioni alla MIT.
 
 **Il dataset di laboratorio e le sue etichette sono simulati. Quando presente, la copia locale dei profili MongoDB viene usata come fonte predefinita della demo. Le metriche del laboratorio non sono una valutazione dei profili reali né una replica dei risultati scientifici pubblicati.**
 

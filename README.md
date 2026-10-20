@@ -101,12 +101,22 @@ a release verified. [VERIFICATION.md](VERIFICATION.md) records prior checks and
 pending checks. Never load untrusted pickle files; train a fresh model when setting
 up a new test environment.
 
-## Release and licensing status
+## License and attribution
 
-Redistribution and licensing decisions are pending. This README grants no software
-licence; the paper's CC BY licence does not automatically cover code. Complete the
-[release checklist](docs/RELEASE_CHECKLIST.md) before describing this as an open-source
-release. Public visibility and permission to reuse are separate matters.
+The software is distributed under the MIT License. Use, modification and
+redistribution, including commercial use, are permitted under its terms.
+Copies or substantial portions must retain the copyright and permission notice.
+Existing attribution notices must be preserved.
+
+If you use or adapt this demonstrator in research, public reporting or another
+project, please acknowledge Claudio Biancalana and Fabrizio Sbicca and cite this
+repository and the accompanying Ital-IA 2026 paper. Citation metadata are provided
+in `CITATION.cff`. This citation request adds no restriction to the MIT License.
+
+The companion demonstrator is separate from ANAC's operational service. Its
+software licence does not relicense the paper, third-party dependencies or
+institutional data outside this repository.
+
 
 ## Description for supporting material
 

@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use this demonstrator in research, public reporting or another project, please cite this repository and the accompanying paper. Citation is requested; the binding software conditions are those of the MIT License."
+type: software
+title: "Controlled Data to Text"
+authors:
+  - family-names: Biancalana
+    given-names: Claudio
+  - family-names: Sbicca
+    given-names: Fabrizio
+repository-code: "https://github.com/leptoquark/controlled-data-to-text"
+url: "https://github.com/leptoquark/controlled-data-to-text"
+license: MIT
+references:
+  - type: conference-paper
+    title: "Controlled AI for Accountable Data-to-Text Generation in Public Transparency Dashboards"
+    authors:
+      - family-names: Biancalana
+        given-names: Claudio
+      - family-names: Sbicca
+        given-names: Fabrizio
+    year: 2026
+    conference:
+      name: "Ital-IA 2026"
+    url: "https://claudiobiancalana.it/assets/publications/biancalana-sbicca-ital-ia-2026.pdf"
